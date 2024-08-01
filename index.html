@@ -44,7 +44,8 @@
             background:#1e1e1e
         }
         #display{
-            margin-bottom:20px
+            margin-bottom:45px;
+            margin-top:5px
         }
         #buttons{
             display:grid;
@@ -62,14 +63,14 @@
             color:#ffffff
         }
         button:hover{
-           background:rgba(255, 255, 255, 0.315);
+           /* background:rgba(255, 255, 255, 0.315); */
            cursor:pointer
         }
         button:active{
-            scale:0.95
+            scale:0.85
         }
         .operators{
-            background:#fd9e10;
+            background:#faa21f;
             color:#fcfafae7;
             font-size: 20px;
             font-weight: 700;
@@ -79,14 +80,25 @@
             background:#fd9e10
         }
         button:nth-child(23){
-            background:#f54040;
+            background:#fc4c4c;
             grid-column:span 2
         }
         button:nth-child(17){
-            background:green
+            background:rgb(16, 122, 16)
         }
         button:nth-child(17):hover{
             background:rgba(0, 128, 0, 0.685)
+        }
+        #timeDisplay{
+            color:#fff;
+            position:absolute;
+            right:30px;
+            top:110px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            background:rgba(0, 0, 0, 0.253);
+            border-radius:10px;
+            padding:5px
         }
         
     </style>
@@ -96,38 +108,39 @@
     <br>
     <div id="calculator">
         <div id="display">
-            <input type="text"  id="screen" disabled>
+            <div id="timeDisplay"></div>
+            <input type="text"  id="screen" placeholder="" disabled>
         </div>
         <div id="buttons">
-            <button onclick="clearAll()">C</button>
+            <button onclick="clearAll()">AC</button>
             <button onclick="deleteLast()">DEL</button>
             <button onclick="display('(')">(</button>
             <button onclick="display(')')">)</button>
-            <button onclick="display('9')">9</button>
-            <button onclick="display('8')">8</button>
             <button onclick="display('7')">7</button>
+            <button onclick="display('8')">8</button>
+            <button onclick="display('9')">9</button>
             <button class="operators" onclick="display('+')">+</button>
-            <button onclick="display('6')">6</button>
-            <button onclick="display('5')">5</button>
             <button onclick="display('4')">4</button>
+            <button onclick="display('5')">5</button>
+            <button onclick="display('6')">6</button>
             <button class="operators" onclick="display('-')">&minus;</button>
-            <button onclick="display('3')">3</button>
-            <button onclick="display('2')">2</button>
             <button onclick="display('1')">1</button>
+            <button onclick="display('2')">2</button>
+            <button onclick="display('3')">3</button>
             <button class="operators" onclick="display('/')">/</button>
             <button onclick="display('0')">0</button>
             <button onclick="display('.')">.</button>
-            <button onclick="generateRandom()">Ran</button>
+            <button onclick="generateRandom()">Ran#</button>
             <button class="operators" onclick="display('*')">x</button>
             <button onclick="display('Math.PI')">&pcy;</button>
-            <button onclick="display('Math.E')">e</button>
+            <button onclick="calculateResult">M+</button>
             <button onclick="calculateResult()">=</button>
            
         </div>
     </div>
     <script>
         function display(value){
-            document.getElementById('screen').value += value
+            document.getElementById('screen').value += value 
         }
         function calculateResult(){
             let display = document.getElementById('screen').value;
@@ -149,6 +162,23 @@
             var random = (Math.random()).toFixed(4);
             document.getElementById('screen').value=random
         }
+        setInterval(function(){
+            var value=new Date();
+            var localtime=value.toString();
+            var hours=value.getHours();
+            var mins=value.getMinutes();
+            var secs=value.getSeconds();
+            if(hours<10){
+                hours = "0"+hours
+            }
+           else if(mins<10){
+            mins="0"+mins
+           }
+           else if(secs<10){
+            secs="0"+secs
+           }
+           document.getElementById("timeDisplay").innerHTML = hours + " : " + mins + " : " + secs;
+        },1000)
     </script>
     <br><br>
 </body>
